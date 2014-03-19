@@ -20,7 +20,7 @@ if ($result = $mysqli->query("SELECT `hash` FROM `hash_table` WHERE 1")) {
        "<tr>" .  
        "<td>" . $id . "</td>" .                                                                                                 
        "<td>" . $row[0] . "</td>" .  
-       "<td>" . "DECRYPT ME" . "</td>" .  
+       "<td><a href=\"decrypt.php?hash=" . $row[0] . "\">DECRYPT ME</a></td>" .  
        "</tr>" .
        "</tfbody>" .  
        "</div>";
