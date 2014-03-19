@@ -14,6 +14,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/starter-template.css" rel="stylesheet">
+    <link href="css/demo_table.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -57,7 +58,30 @@
           <input type="submit" value="POST">
         </form>
       </div>
+      <div >
+      <table cellpadding="0" cellspacing="0" border="0" class="display" id="netsec2014_data" >
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Hash</th>
+                <th>DECRYPT ME</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>Hash</th>
+                <th>DECRYPT ME</th>
+            </tr>
+        </tfoot>
+        <tbody>
+<?php
+    require_once("query.php");
+?>
+        </tbody>
+      </table>
 
+      </div>
     </div><!-- /.container -->
 
 
@@ -67,5 +91,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $().ready(function(){
+            //Datatable Config
+            $('#netsec2014_data').dataTable({
+                "bJQueryUI": true,
+                "iDisplayLength": 20,
+                "aLengthMenu": [[25, 50, -1], [25, 50, "All"]],
+                "bProcessing": true,
+            });
+
+    </script>
   </body>
 </html>
