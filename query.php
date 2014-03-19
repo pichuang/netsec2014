@@ -9,7 +9,7 @@ if(mysqli_connect_errno()){
     exit();
 }
 
-if ($result = $mysqli->query("SELECT * FROM `hash_table` WHERE 1")) {
+if ($result = $mysqli->query("SELECT `hash` FROM `hash_table` WHERE 1")) {
     //printf("Select returned %d rows.\n", $result->num_rows);
 
     $id = 0;
@@ -19,12 +19,12 @@ if ($result = $mysqli->query("SELECT * FROM `hash_table` WHERE 1")) {
        "<tfbody>" .  
        "<tr>" .  
        "<td>" . $id . "</td>" .                                                                                                 
-       "<td>" . $row[1] . "</td>" .  
+       "<td>" . $row[0] . "</td>" .  
        "<td>" . "DECRYPT ME" . "</td>" .  
        "</tr>" .
        "</tfbody>" .  
        "</div>";
-       $id = $id + 1;  
+       $id = $id++;  
     }                 
 
     /* free result set */
