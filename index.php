@@ -1,3 +1,6 @@
+<?php
+error_reporting(7);
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>

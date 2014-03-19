@@ -56,7 +56,7 @@ else{
 try{
     $stmt -> execute();
     $mysqli -> close();
-    header("Location:index.html");
+    header("Location:index.php");
 }
 catch (Exception $e){
     throw $e;
