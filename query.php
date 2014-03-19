@@ -12,7 +12,7 @@ if(mysqli_connect_errno()){
 if ($result = $mysqli->query("SELECT `hash` FROM `hash_table` WHERE 1")) {
     //printf("Select returned %d rows.\n", $result->num_rows);
 
-    $id = 0;
+    $id = 1;
     while ($row = $result->fetch_row())  
     {
        echo "<div>" .
@@ -24,7 +24,7 @@ if ($result = $mysqli->query("SELECT `hash` FROM `hash_table` WHERE 1")) {
        "</tr>" .
        "</tfbody>" .  
        "</div>";
-       $id = $id++;  
+       $id = $id + 1;  
     }                 
 
     /* free result set */
