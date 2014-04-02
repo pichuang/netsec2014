@@ -55,7 +55,7 @@ error_reporting(7);
     <div class="container">
 
       <div class="starter-template">
-        <form action="db_class.php" method="POST">
+        <form action="encrypt.php" method="POST">
           <textarea name="content" cols="50" rows="10"></textarea><br>
           Enter your key: <input type="text" name="key"><br>
           <input type="submit" value="POST">
