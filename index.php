@@ -61,8 +61,8 @@ error_reporting(7);
           <input type="submit" value="POST">
         </form>
       </div>
-      <div >
-      <table cellpadding="0" cellspacing="0" border="0" class="display" id="netsec2014_data" >
+      <div class="table-responsive">
+      <table cellpadding="0" cellspacing="0" border="0" class="table table-striped" id="netsec2014_data" >
         <thead>
             <tr>
                 <th>ID</th>
@@ -83,7 +83,7 @@ error_reporting(7);
 ?>
         </tbody>
       </table>
-
+    
       </div>
     </div><!-- /.container -->
 

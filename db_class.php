@@ -17,14 +17,15 @@ function aes128Encrypt($key, $data) {
     $data .= str_repeat(chr($padding), $padding);
     return mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key, $data, MCRYPT_MODE_CBC, str_repeat("\0", 16));
 }
-
 /*
     Variable
 */
-//BUG: Maybe NOT STORE
 $source_key = $_POST['key'];
 $source_content = $_POST['content'];
 
+$sql = "INSERT INTO `hash_table`(`hash`) VALUES (?)";
+$stmt = $mysqli->stmt_init();
+$stmt = $mysqli->prepare($sql);
 
 #printf("%s _ %s", $source_key, $source_content);
 /*
@@ -32,18 +33,12 @@ $source_content = $_POST['content'];
 */
 if(!empty($source_content) && empty($source_key)){
     printf("plaintext");
-    $sql = "INSERT INTO `hash_table`(`hash`) VALUES (?)";
-    $stmt = $mysqli->stmt_init();
-    $stmt = $mysqli->prepare($sql);
     $stmt->bind_param("s", $source_content);
 }
 elseif(!empty($source_content) && !empty($source_key)){
     printf("ciphertext");
     $cipher_content = bin2hex(aes128Encrypt($source_key, $source_content));
-    $sql = "INSERT INTO `hash_table`(`hash`, `hash_key`) VALUES (?, ?)";
-    $stmt = $mysqli->stmt_init();
-    $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("ss", $cipher_content, $source_key);
+    $stmt->bind_param("s", $cipher_content);
 }
 else{
     printf("Please type something");

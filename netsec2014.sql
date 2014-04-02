@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: netsec2014
 -- ------------------------------------------------------
--- Server version	5.6.16-64.0
+-- Server version	5.6.16-64.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,9 +25,8 @@ DROP TABLE IF EXISTS `hash_table`;
 CREATE TABLE `hash_table` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `hash` longtext NOT NULL,
-  `hash_key` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -39,4 +38,4 @@ CREATE TABLE `hash_table` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-19  4:26:08
+-- Dump completed on 2014-04-03  1:38:21
