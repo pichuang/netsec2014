@@ -1,36 +1,46 @@
 <?php
 error_reporting(7);
+
+function aes128Decrypt($key, $data) {
+    if(16 !== strlen($key)) $key = hash('MD5', $key, true);
+    $data = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $key, $data, MCRYPT_MODE_CBC, str_repeat("\0", 16));
+    $padding = ord($data[strlen($data) - 1]); 
+    return substr($data, 0, -$padding); 
+}
+
+$source_hash = $_GET['hash'];
+$source_key = $_GET['key'];
+
 ?>
-<!DOCTYPE html>
-<html lang="en">
+
+<!DOCTYPE html>                                                                                                                                  
+<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="netsec2014 project1">
     <meta name="author" content="pichuang@cs.nctu.edu.tw">
-
+ 
     <title>NETSEC2014 Project1</title>
-
+ 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
+ 
     <!-- Custom styles for this template -->
     <link href="css/starter-template.css" rel="stylesheet">
     <link href="css/demo_table.css" rel="stylesheet">
-
+ 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
+ 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-
   <body>
-
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -40,70 +50,45 @@ error_reporting(7);
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">NETSEC2014</a>
+          <a class="navbar-brand" href="index.php">NETSEC2014</a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active"><a href="index.php">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
-
-    <div class="container">
-
-      <div class="starter-template">
-        <form action="encrypt.php" method="POST">
-          <textarea name="content" cols="50" rows="10"></textarea><br>
-          Enter your key: <input type="password" name="key"><br>
+  <div class="container"> 
+    <div class="starter-template">
+        <form action="decrypt.php" method="GET">
+          <input type="hidden" name="hash" value="<?php echo $source_hash;?>">
+          Enter your key: <input type="text" name="key"><br>
           <input type="submit" value="POST">
         </form>
-      </div>
-      <div class="table-responsive">
-      <table cellpadding="0" cellspacing="0" border="0" class="table table-striped" id="netsec2014_data" >
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Hash</th>
-                <th>DECRYPT ME</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th>ID</th>
-                <th>Hash</th>
-                <th>DECRYPT ME</th>
-            </tr>
-        </tfoot>
-        <tbody>
+    </div>
+    <div class="page-header">
+        <h1>Answer</h1>
+    </div>
+    <div class="well">
+        <div>
 <?php
-    require_once("query.php");
+if(!empty($source_hash && $source_hash != "0")){
+    $binbin = hex2bin($source_hash); 
+    $answer = aes128Decrypt($source_key, $binbin); //if null, return "0"
+    printf($answer);
+}
 ?>
-        </tbody>
-      </table>
-    
-      </div>
-    </div><!-- /.container -->
-
-
+        </div>
+    </div>
+  </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript">
-        $().ready(function(){
-            //Datatable Config
-            $('#netsec2014_data').dataTable({
-                "bJQueryUI": true,
-                "iDisplayLength": 20,
-                "aLengthMenu": [[25, 50, -1], [25, 50, "All"]],
-                "bProcessing": true,
-            });
-
-    </script>
+    
   </body>
 </html>
